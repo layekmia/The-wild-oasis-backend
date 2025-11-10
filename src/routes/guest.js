@@ -1,8 +1,17 @@
 const express = require("express");
-const { getGuest } = require("../controller/guest.controller");
+const {
+  createGuest,
+  getGuest,
+  updateGuest,
+} = require("../controller/guest.controller");
 
 const router = express.Router();
 
-router.get("/guests", getGuest);
+// create a new guest
+router.post("/guests", createGuest);
+// get guest by email
+router.get("/guests/email/:email", getGuest);
+// update guest by id
+router.patch("/guests/:id", updateGuest);
 
 module.exports = router;
