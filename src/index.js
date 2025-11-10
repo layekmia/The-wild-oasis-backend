@@ -10,7 +10,12 @@ const settingRouter = require("./routes/setting");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"], // allow only my front-end
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Connect to database
