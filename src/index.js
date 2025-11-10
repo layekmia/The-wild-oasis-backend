@@ -1,7 +1,10 @@
 const express = require("express");
-const cors = require("cors"); 
+const cors = require("cors");
 const connectDB = require("./config/database");
 require("dotenv").config();
+
+// Require all routes;
+const guestRouter = require("./routes/guest");
 
 const app = express();
 
@@ -13,6 +16,9 @@ app.use(express.json());
 connectDB();
 
 // Routes
+
+app.use("/api", guestRouter);
+
 app.get("/", (req, res) => {
   res.json({ success: true, message: "The wild oasis server is running" });
 });
