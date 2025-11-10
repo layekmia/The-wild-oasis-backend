@@ -17,9 +17,14 @@ app.use(express.json());
 connectDB();
 
 // Routes
+const routes = [
+  { path: "/api/guests", router: guestRouter },
+  { path: "/api/setting", router: settingRouter },
+];
 
-app.use("/api", guestRouter);
-app.use("/api", settingRouter);
+routes.forEach(({ path, router }) => {
+  app.use(path, router);
+});
 
 app.get("/", (req, res) => {
   res.json({ success: true, message: "The wild oasis server is running" });

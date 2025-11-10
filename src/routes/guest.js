@@ -8,10 +8,10 @@ const {
 const router = express.Router();
 
 // create a new guest
-router.post("/guests", createGuest);
+router.post("/", createGuest);
 // get guest by email
-router.get("/guests/email/:email", getGuest);
+router.get("/email/:email", getGuest);
 // update guest by id
-router.patch("/guests/:id", updateGuest);
+router.patch("/:id", updateGuest);
 
 module.exports = router;
