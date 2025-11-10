@@ -5,6 +5,7 @@ require("dotenv").config();
 
 // Require all routes;
 const guestRouter = require("./routes/guest");
+const settingRouter = require("./routes/setting");
 
 const app = express();
 
@@ -18,6 +19,7 @@ connectDB();
 // Routes
 
 app.use("/api", guestRouter);
+app.use("/api", settingRouter);
 
 app.get("/", (req, res) => {
   res.json({ success: true, message: "The wild oasis server is running" });
