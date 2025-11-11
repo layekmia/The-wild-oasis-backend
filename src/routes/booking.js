@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  getBookings,
+//   getBookings,
   getBooking,
   createBooking,
   getBookedDates,
@@ -11,7 +11,7 @@ const {
 const router = express.Router();
 
 router.post("/", createBooking);
-router.get("/", getBookings); // <-- more specific first
+// router.get("/", getBookings); // <-- more specific first
 
 router.get("/:id/booked/dates", getBookedDates);
 router.patch("/:id/update", updateBooking);
