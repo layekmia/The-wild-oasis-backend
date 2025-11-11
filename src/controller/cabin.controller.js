@@ -1,6 +1,5 @@
-const mongoose = require('mongoose')
-const Cabin  = require('../model/Cabin');
-
+const mongoose = require("mongoose");
+const Cabin = require("../model/Cabin");
 
 exports.getCabins = async (req, res) => {
   try {
@@ -11,7 +10,7 @@ exports.getCabins = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Cabin not found" });
     }
-    return res.status(201).json({ cabins });
+    return res.status(201).json(cabins);
   } catch (error) {
     console.error(error.message);
     return res
