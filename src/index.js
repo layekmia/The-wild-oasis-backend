@@ -4,10 +4,10 @@ const connectDB = require("./config/database");
 require("dotenv").config();
 
 // Require all routes;
-const guestRouter = require("./routes/guest");
-const settingRouter = require("./routes/setting");
-const bookingRouter = require("./routes/booking");
-const cabinRouter = require("./routes/cabin");
+const guest = require("./routes/guest");
+const setting = require("./routes/setting");
+const booking = require("./routes/booking");
+const cabin = require("./routes/cabin");
 
 const app = express();
 
@@ -25,10 +25,10 @@ connectDB();
 
 // Routes
 const routes = [
-  { path: "/api/guests", router: guestRouter },
-  { path: "/api/setting", router: settingRouter },
-  { path: "/api/bookings", router: bookingRouter },
-  { path: "/api/cabins", router: cabinRouter },
+  { path: "/api/guests", router: guest },
+  { path: "/api/setting", router: setting },
+  { path: "/api/bookings", router: booking },
+  { path: "/api/cabins", router: cabin },
 ];
 
 routes.forEach(({ path, router }) => {
