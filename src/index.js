@@ -7,6 +7,7 @@ require("dotenv").config();
 const guestRouter = require("./routes/guest");
 const settingRouter = require("./routes/setting");
 const bookingRouter = require("./routes/booking");
+const cabinRouter = require("./routes/cabin");
 
 const app = express();
 
@@ -27,6 +28,7 @@ const routes = [
   { path: "/api/guests", router: guestRouter },
   { path: "/api/setting", router: settingRouter },
   { path: "/api/bookings", router: bookingRouter },
+  { path: "/api/cabins", router: cabinRouter },
 ];
 
 routes.forEach(({ path, router }) => {
