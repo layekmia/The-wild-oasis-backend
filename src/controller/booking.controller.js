@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Booking = require("../model/Booking");
-const Cabin = require("../model/cabin");
+// const Cabin = require("../model/cabin");
 const { eachDayOfInterval } = require("date-fns");
 
 exports.createBooking = async (req, res) => {
@@ -63,41 +63,41 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-exports.getBookings = async (req, res) => {
-  const { guestId } = req.query;
+// exports.getBookings = async (req, res) => {
+//   const { guestId } = req.query;
 
-  if (!guestId) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Guest id is required" });
-  } else if (!mongoose.Types.ObjectId.isValid(guestId)) {
-    return res.status(400).json({ success: false, message: "Invalid guestId" });
-  }
+//   if (!guestId) {
+//     return res
+//       .status(400)
+//       .json({ success: false, message: "Guest id is required" });
+//   } else if (!mongoose.Types.ObjectId.isValid(guestId)) {
+//     return res.status(400).json({ success: false, message: "Invalid guestId" });
+//   }
 
-  try {
-    const bookings = await Booking.find({ guestId })
-      .select(
-        "createdAt startDate endDate numNights numGuests totalPrice guestId cabinId"
-      )
-      .populate("cabinId", "name image")
-      .sort({ startDate: 1 })
-      .lean();
+//   try {
+//     const bookings = await Booking.find({ guestId })
+//       .select(
+//         "createdAt startDate endDate numNights numGuests totalPrice guestId cabinId"
+//       )
+//       .populate("cabinId", "name image")
+//       .sort({ startDate: 1 })
+//       .lean();
 
-    if (!bookings || bookings.length === 0) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No booking found" });
-    }
+//     if (!bookings || bookings.length === 0) {
+//       return res
+//         .status(400)
+//         .json({ success: false, message: "No booking found" });
+//     }
 
-    return res.status(201).json(bookings);
-  } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({
-      success: false,
-      message: error.message || "Internal server error",
-    });
-  }
-};
+//     return res.status(201).json(bookings);
+//   } catch (error) {
+//     console.error(error.message);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Internal server error",
+//     });
+//   }
+// };
 
 exports.getBooking = async (req, res) => {
   const bookingId = req.params.id;
