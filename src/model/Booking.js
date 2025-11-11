@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 
-const bookingSchema = new Schema(
+const bookingSchema = new mongoose.Schema(
   {
     numGuests: { type: Number, required: true },
     numNights: { type: Number, required: true },
@@ -12,8 +12,16 @@ const bookingSchema = new Schema(
     hasBreakfast: { type: Boolean, required: true },
     isPaid: { type: Boolean, required: true },
     observations: { type: String },
-    cabinId: { type: Schema.Types.ObjectId, ref: "Cabin", required: true },
-    guestId: { type: Schema.Types.ObjectId, ref: "Guest", required: true },
+    cabinId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cabin",
+      required: true,
+    },
+    guestId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Guest",
+      required: true,
+    },
     status: {
       type: String,
       enum: ["confirmed", "unconfirmed"],
@@ -23,5 +31,5 @@ const bookingSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = model("Booking", bookingSchema);
-
+module.exports =
+  mongoose.models.Booking || mongoose.model("Booking", bookingSchema);
