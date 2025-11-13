@@ -2,7 +2,7 @@ const Setting = require("../model/Setting");
 
 exports.getSetting = async (req, res) => {
   try {
-    const setting = await Setting.find();
+    const setting = await Setting.findOne();
     if (!setting)
       return res
         .status(400)

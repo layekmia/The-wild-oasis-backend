@@ -158,7 +158,6 @@ exports.getBookedDates = async (req, res) => {
         .json({ success: false, message: "No booked date found" });
     }
 
-    console.log(bookings);
 
     const bookedDates = bookings
       .map((booking) =>
