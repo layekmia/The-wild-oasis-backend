@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Booking = require("../model/Booking");
-const Cabin = require('../model/Cabin')
+const Cabin = require("../model/Cabin");
 const { eachDayOfInterval } = require("date-fns");
 
 exports.createBooking = async (req, res) => {
@@ -70,7 +70,9 @@ exports.getBookings = async (req, res) => {
     return res
       .status(400)
       .json({ success: false, message: "Guest id is required" });
-  } else if (!mongoose.Types.ObjectId.isValid(guestId)) {
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(guestId)) {
     return res.status(400).json({ success: false, message: "Invalid guestId" });
   }
 
@@ -85,11 +87,22 @@ exports.getBookings = async (req, res) => {
 
     if (!bookings || bookings.length === 0) {
       return res
-        .status(400)
+        .status(404)
         .json({ success: false, message: "No booking found" });
     }
 
-    return res.status(201).json(bookings);
+    const now = new Date();
+
+    // Move past bookings to the end
+    const sortedBookings = bookings.sort((a, b) => {
+      const aPast = new Date(a.endDate) < now;
+      const bPast = new Date(b.endDate) < now;
+
+      if (aPast === bPast) return 0; // same type, keep original sort
+      return aPast ? 1 : -1; // past bookings go after upcoming
+    });
+
+    return res.status(200).json(sortedBookings);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({
@@ -157,7 +170,6 @@ exports.getBookedDates = async (req, res) => {
         .status(400)
         .json({ success: false, message: "No booked date found" });
     }
-
 
     const bookedDates = bookings
       .map((booking) =>
