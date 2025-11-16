@@ -13,11 +13,7 @@ exports.createGuest = async (req, res) => {
     let guest = await Guest.findOne({ email });
 
     if (guest) {
-      return res.status(200).json({
-        success: true,
-        message: "Guest already exists, signed in successfully",
-        guest,
-      });
+      return res.status(200).json(guest);
     }
 
     guest = await Guest.create({ fullName, email });
@@ -58,6 +54,8 @@ exports.getGuest = async (req, res) => {
 exports.updateGuest = async (req, res) => {
   const guestId = req.params.id;
   const updateData = req.body;
+
+  console.log(guestId, updateData);
 
   if (!guestId) {
     return res
