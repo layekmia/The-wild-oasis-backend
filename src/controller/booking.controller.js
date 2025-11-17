@@ -79,7 +79,7 @@ exports.getBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ guestId })
       .select(
-        "createdAt startDate endDate numNights numGuests totalPrice guestId cabinId"
+        "createdAt updatedAt startDate endDate numNights numGuests totalPrice guestId cabinId status"
       )
       .populate("cabinId", "name image")
       .sort({ startDate: 1 })
