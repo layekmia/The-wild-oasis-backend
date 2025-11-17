@@ -4,7 +4,7 @@ const guestSchema = new mongoose.Schema(
   {
     fullName: { type: String, require: true },
     email: { type: String, require: true, unique: true },
-    nationalID: { type: String, default: null },
+    nationalID: { type: String, default: null, sparse: true, unique: true },
     countryFlag: { type: String, default: null },
     nationality: { type: String, default: null },
   },
