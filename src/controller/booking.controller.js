@@ -267,3 +267,34 @@ exports.deleteBooking = async (req, res) => {
       .json({ success: false, message: "Internal server error" });
   }
 };
+
+exports.updateStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  const allowed = ["confirmed", "unconfirmed", "completed", "cancelled"];
+
+  if (!allowed.includes(status)) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid status value" });
+  }
+
+  try {
+    const updateBooking = await Booking.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+    if (!updateBooking) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Booking not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, message: error.message || "Server error" });
+  }
+};
