@@ -291,6 +291,7 @@ exports.updateStatus = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Booking not found" });
     }
+    return res.status(201).json(updateBooking);
   } catch (error) {
     console.error(error);
     return res
