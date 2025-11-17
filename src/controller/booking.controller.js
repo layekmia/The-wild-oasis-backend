@@ -162,7 +162,7 @@ exports.getBookedDates = async (req, res) => {
     const bookings = await Booking.find({
       cabinId,
       endDate: { $gte: today },
-      status: { $in: ["confirmed", "unconfirmed", "checked-in"] },
+      status: { $in: ["confirmed", "unconfirmed"] },
     });
 
     if (!bookings.length) {
